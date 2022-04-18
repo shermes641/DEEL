@@ -1,0 +1,204 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Deel",
+    "description": "Deel backend",
+    "version": "v1"
+  },
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/contracts/{id}": {
+      "get": {
+        "summary": "Get contract by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "type": "integer",
+            "default": 5
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "default": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/contracts": {
+      "get": {
+        "summary": "GET active contracts",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/jobs/unpaid": {
+      "get": {
+        "summary": "GET unpaid jobs in active contracts",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/jobs/{id}/pay": {
+      "post": {
+        "summary": "POST payment to Job by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Job paid"
+          },
+          "404": {
+            "description": "Job not found"
+          },
+          "400": {
+            "description": "Insufficient funds"
+          }
+        }
+      }
+    },
+    "/balances/deposit/{userId}": {
+      "post": {
+        "summary": "POST deposit to client balance",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "amount",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "number"
+                }
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Deposit exceeds the threshold"
+          }
+        }
+      }
+    },
+    "/admin/best-profession": {
+      "get": {
+        "summary": "GET Best profession",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "start",
+            "type": "string",
+            "required": true,
+            "default": "1900-01-01T01:01:01.000Z"
+          },
+          {
+            "in": "query",
+            "name": "end",
+            "type": "string",
+            "required": true,
+            "default": "2025-01-01T01:01:01.000Z"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/best-clients": {
+      "get": {
+        "summary": "GET Best clients",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "start",
+            "type": "string",
+            "required": true,
+            "default": "1900-01-01T01:01:01.000Z"
+          },
+          {
+            "in": "query",
+            "name": "end",
+            "type": "string",
+            "required": true,
+            "default": "2025-01-01T01:01:01.000Z"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "required": false,
+            "default": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}
